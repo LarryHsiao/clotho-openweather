@@ -1,9 +1,13 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+    id "com.jfrog.bintray" version "1.0"
+    id 'com.larryhsiao.thea' version '1.4.7'
 }
+System.out.println(thea.versionIndicator.apply(""))
 
+def versionName = thea.version.version().versionName()
 group 'com.larryhsiao'
-version '1.0.0'
+version versionName
 
 repositories {
     mavenCentral()
@@ -12,9 +16,71 @@ repositories {
 
 dependencies {
     implementation "com.silverhetch:clotho:1.17.5"
-    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
 }
 
 test {
     useJUnitPlatform()
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = 1.8
+    }
+}
+
+jar {
+    from sourceSets.main.allSource
+}
+
+apply plugin: 'jacoco'
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+    }
+}
+
+bintray {
+    user = 'larryhsiao'
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['release']
+    publish = true
+    pkg {
+        repo = 'Elizabeth'
+        name = 'Clotho-openweather'
+        userOrg = 'larryhsiao'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/LarryHsiao/clotho-openweather.git'
+        version {
+            name = versionName
+            gpg {
+                sign = true
+                passphrase = System.getenv('BINTRAY_PASSPHRASE')
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            groupId 'com.larryhsiao'
+            artifactId 'clotho-openweather'
+            version versionName
+        }
+    }
 }

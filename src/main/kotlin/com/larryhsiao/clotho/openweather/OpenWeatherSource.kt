@@ -1,7 +1,7 @@
-package com.silverhetch.clotho.openweather
+package com.larryhsiao.clotho.openweather
 
+import com.larryhsiao.clotho.openweather.Constant.Companion.OPEN_WEATHER_HOST
 import com.silverhetch.clotho.Source
-import com.silverhetch.clotho.openweather.Constant.Companion.OPEN_WEATHER_HOST
 import com.silverhetch.clotho.stream.StreamString
 import java.lang.RuntimeException
 import java.net.HttpURLConnection
