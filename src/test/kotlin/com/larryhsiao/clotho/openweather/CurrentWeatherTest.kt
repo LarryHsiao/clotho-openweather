@@ -1,15 +1,14 @@
 package com.larryhsiao.clotho.openweather
 
-import com.larryhsiao.clotho.openweather.Weather.Type.CLEAR
 import com.larryhsiao.clotho.openweather.Weather.Type.CLOUDS
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /**
- * Test for [OpenWeatherSource].
+ * Test for [CurrentWeather].
  */
-internal class OpenWeatherSourceTest {
+internal class CurrentWeatherTest {
     // language=JSON
     private val sampleData = """{
   "coord": {
@@ -70,7 +69,7 @@ internal class OpenWeatherSourceTest {
     internal fun checkResponseExist() {
         Assertions.assertNotEquals(
             "",
-            OpenWeatherSource(
+            CurrentWeather(
                 "a5817f5f724548529f05f64e8780ee41", 23.5, 120.0
             ).value().toString()
         )

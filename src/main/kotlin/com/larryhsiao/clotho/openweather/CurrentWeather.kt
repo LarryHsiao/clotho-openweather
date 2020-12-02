@@ -1,8 +1,8 @@
 package com.larryhsiao.clotho.openweather
 
 import com.larryhsiao.clotho.openweather.Constant.Companion.OPEN_WEATHER_HOST
-import com.silverhetch.clotho.Source
-import com.silverhetch.clotho.stream.StreamString
+import com.larryhsiao.clotho.Source
+import com.larryhsiao.clotho.stream.StreamString
 import java.lang.RuntimeException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -10,7 +10,7 @@ import java.net.URL
 /**
  * Source to fetch weather data from openweather api.
  */
-class OpenWeatherSource(
+class CurrentWeather(
     private val apiKey: String,
     private val lat: Double,
     private val lon: Double
